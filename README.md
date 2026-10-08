@@ -39,6 +39,8 @@ Al ser un sitio estático, puede publicarse gratis en **GitHub Pages**, Netlify 
 
 Todas las rutas son **relativas** y no hay paso de compilación, así que la carpeta funciona igual en GitHub Pages, en cualquier hosting o abriendo `index.html` en local.
 
+Los archivos CSS y JS se enlazan con un número de versión (`styles.css?v=2`). **Al modificar cualquier CSS o JS hay que subir ese número en `index.html`** para que los navegadores no mezclen archivos nuevos con otros antiguos guardados en caché.
+
 La partida (bolas sacadas) se guarda en el navegador con `localStorage`, por lo que no se pierde al recargar la página.
 
 ## 🚀 Cómo usarlo
