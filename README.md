@@ -97,7 +97,7 @@ La interfaz se diseña con enfoque *mobile first*:
 | Dispositivo | Ancho aproximado | Disposición |
 |-------------|------------------|-------------|
 | Móvil       | < 600 px         | Una columna, botones grandes y táctiles |
-| Tablet      | 600 – 1024 px    | Bombo y cartón en paralelo cuando hay espacio |
+| Tablet      | 600 – 1024 px    | Pestañas; bombo y panel de números lado a lado, cartones en rejilla |
 | Escritorio  | > 1024 px        | Bombo, panel de números y cartones visibles a la vez |
 
 ## 🗺️ Hoja de ruta
