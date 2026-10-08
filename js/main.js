@@ -1,10 +1,10 @@
 /**
- * Interfaz: conecta el bombo y los cartones con el HTML.
+ * Interfaz: conecta el bombo con el HTML.
  */
 (function (global) {
   'use strict';
 
-  const { Bombo, Carton } = global.Bingo;
+  const { Bombo } = global.Bingo;
   const doc = global.document;
   const $ = (id) => doc.getElementById(id);
 
@@ -12,8 +12,6 @@
 
   const CLAVES = {
     bombo: 'bingo:bombo',
-    cartones: 'bingo:cartones',
-    pestana: 'bingo:pestana',
     voz: 'bingo:voz',
     velocidad: 'bingo:velocidad',
   };
@@ -25,6 +23,13 @@
         return valor === null ? null : JSON.parse(valor);
       } catch (e) {
         return null;
+      }
+    },
+    borrar(clave) {
+      try {
+        global.localStorage.removeItem(clave);
+      } catch (e) {
+        /* Nada que hacer. */
       }
     },
     guardar(clave, valor) {
@@ -40,28 +45,14 @@
 
   let temporizadorAviso = null;
 
-  function avisar(texto, tipo = '') {
+  function avisar(texto) {
     const aviso = $('aviso');
     aviso.textContent = texto;
-    aviso.className = 'aviso is-visible' + (tipo ? ' aviso-' + tipo : '');
+    aviso.className = 'aviso is-visible';
     clearTimeout(temporizadorAviso);
     temporizadorAviso = setTimeout(() => {
       aviso.className = 'aviso';
     }, 2800);
-  }
-
-  /* ---------- Pestañas (solo visibles en móvil y tablet) ---------- */
-
-  function activarPestana(nombre) {
-    doc.querySelectorAll('.tab').forEach((tab) => {
-      const activa = tab.dataset.panel === nombre;
-      tab.classList.toggle('is-active', activa);
-      tab.setAttribute('aria-selected', String(activa));
-    });
-    doc.querySelectorAll('.panel').forEach((panel) => {
-      panel.classList.toggle('is-active', panel.id === 'panel-' + nombre);
-    });
-    almacen.guardar(CLAVES.pestana, nombre);
   }
 
   /* ---------- Bombo ---------- */
@@ -175,120 +166,13 @@
     avisar('Nueva partida');
   }
 
-  /* ---------- Cartones ---------- */
-
-  let cartones = (almacen.leer(CLAVES.cartones) || [])
-    .map(Carton.desdeJSON)
-    .filter(Boolean);
-
-  function guardarCartones() {
-    almacen.guardar(CLAVES.cartones, cartones);
-  }
-
-  function generarCartones(cantidad) {
-    cartones = Array.from({ length: cantidad }, () => Carton.generar());
-    guardarCartones();
-    pintarCartones();
-  }
-
-  function pintarCartones() {
-    const contenedor = $('cartones');
-    contenedor.innerHTML = '';
-
-    cartones.forEach((carton, indice) => {
-      const tarjeta = doc.createElement('article');
-      tarjeta.className = 'carton';
-      tarjeta.id = carton.id;
-
-      const cabecera = doc.createElement('header');
-      cabecera.className = 'carton-cabecera';
-      const titulo = doc.createElement('h3');
-      titulo.textContent = 'Cartón ' + (indice + 1);
-      const estado = doc.createElement('span');
-      estado.className = 'carton-estado';
-      cabecera.append(titulo, estado);
-
-      const rejilla = doc.createElement('div');
-      rejilla.className = 'carton-rejilla';
-      carton.numeros.forEach((fila) => {
-        fila.forEach((numero) => {
-          if (numero === null) {
-            const vacia = doc.createElement('span');
-            vacia.className = 'celda celda-vacia';
-            vacia.setAttribute('aria-hidden', 'true');
-            rejilla.appendChild(vacia);
-            return;
-          }
-          const celda = doc.createElement('button');
-          celda.type = 'button';
-          celda.className = 'celda';
-          celda.textContent = numero;
-          celda.dataset.numero = numero;
-          celda.dataset.indice = indice;
-          rejilla.appendChild(celda);
-        });
-      });
-
-      tarjeta.append(cabecera, rejilla);
-      contenedor.appendChild(tarjeta);
-      pintarEstadoCarton(carton);
-    });
-  }
-
-  function pintarEstadoCarton(carton) {
-    const tarjeta = $(carton.id);
-    if (!tarjeta) return;
-
-    tarjeta.querySelectorAll('.celda[data-numero]').forEach((celda) => {
-      const marcado = carton.estaMarcado(Number(celda.dataset.numero));
-      celda.classList.toggle('is-marcada', marcado);
-      celda.setAttribute('aria-pressed', String(marcado));
-    });
-
-    const lineas = carton.lineasCompletas();
-    const bingo = carton.esBingo();
-    tarjeta.classList.toggle('is-bingo', bingo);
-    tarjeta.querySelector('.carton-estado').textContent = bingo
-      ? '¡BINGO!'
-      : lineas
-        ? lineas + (lineas === 1 ? ' línea' : ' líneas')
-        : carton.marcados.size + ' / 15';
-  }
-
-  function alPulsarCelda(evento) {
-    const celda = evento.target.closest('.celda[data-numero]');
-    if (!celda) return;
-
-    const carton = cartones[Number(celda.dataset.indice)];
-    const lineasAntes = carton.lineasCompletas();
-    carton.alternar(Number(celda.dataset.numero));
-    guardarCartones();
-    pintarEstadoCarton(carton);
-
-    if (carton.esBingo()) {
-      avisar('🎉 ¡BINGO!', 'bingo');
-    } else if (carton.lineasCompletas() > lineasAntes) {
-      avisar('✅ ¡Línea!', 'linea');
-    }
-  }
-
-  function limpiarMarcas() {
-    cartones.forEach((carton) => carton.limpiar());
-    guardarCartones();
-    cartones.forEach(pintarEstadoCarton);
-  }
-
   /* ---------- Inicio ---------- */
 
   function iniciar() {
-    // Pestañas
-    doc.querySelectorAll('.tab').forEach((tab) => {
-      tab.addEventListener('click', () => activarPestana(tab.dataset.panel));
-    });
-    const pestanaGuardada = almacen.leer(CLAVES.pestana);
-    if (pestanaGuardada === 'bombo' || pestanaGuardada === 'cartones') activarPestana(pestanaGuardada);
+    // Datos de versiones anteriores que ya no se usan (cartones y pestañas).
+    almacen.borrar('bingo:cartones');
+    almacen.borrar('bingo:pestana');
 
-    // Bombo
     crearTablero();
     pintarBombo();
     $('btn-sacar').addEventListener('click', () => {
@@ -318,25 +202,6 @@
     } else {
       $('opcion-voz').hidden = true;
     }
-
-    // Cartones
-    const selCantidad = $('sel-cantidad');
-    if (cartones.length) {
-      const opcion = selCantidad.querySelector('option[value="' + cartones.length + '"]');
-      if (opcion) selCantidad.value = String(cartones.length);
-      pintarCartones();
-    } else {
-      generarCartones(Number(selCantidad.value));
-    }
-
-    $('btn-nuevos-cartones').addEventListener('click', () => {
-      const hayMarcas = cartones.some((c) => c.marcados.size > 0);
-      if (hayMarcas && !global.confirm('¿Generar cartones nuevos? Perderás los actuales.')) return;
-      generarCartones(Number(selCantidad.value));
-      avisar('Cartones nuevos listos');
-    });
-    $('btn-limpiar-marcas').addEventListener('click', limpiarMarcas);
-    $('cartones').addEventListener('click', alPulsarCelda);
   }
 
   if (doc.readyState === 'loading') {

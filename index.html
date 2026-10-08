@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Bingo online sencillo: bombo de 90 bolas y cartones aleatorios. Juega desde el móvil, la tablet o el ordenador.">
+  <meta name="description" content="Bombo de Bingo online de 90 bolas para jugar con cartones físicos. Funciona en el móvil, la tablet o el ordenador.">
   <meta name="theme-color" content="#5b3cc4">
   <title>Bingo Online</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎱</text></svg>">
@@ -12,15 +12,10 @@
 <body>
   <header class="app-header">
     <h1 class="app-title">🎱 Bingo Online</h1>
-    <nav class="tabs" role="tablist" aria-label="Secciones">
-      <button class="tab is-active" role="tab" id="tab-bombo" aria-controls="panel-bombo" aria-selected="true" data-panel="bombo">Bombo</button>
-      <button class="tab" role="tab" id="tab-cartones" aria-controls="panel-cartones" aria-selected="false" data-panel="cartones">Mis cartones</button>
-    </nav>
   </header>
 
   <main class="app-main">
-    <!-- Bombo (modo cantador) -->
-    <section id="panel-bombo" class="panel is-active" role="tabpanel" aria-labelledby="tab-bombo">
+    <section id="panel-bombo" class="panel" aria-label="Bombo">
       <div class="card bombo">
         <h2 class="section-title">Bombo</h2>
         <div class="bola-actual" id="bola-actual" aria-live="assertive" aria-atomic="true">–</div>
@@ -56,30 +51,6 @@
         <div id="tablero" class="tablero" aria-label="Números que han salido"></div>
       </div>
     </section>
-
-    <!-- Cartones (modo jugador) -->
-    <section id="panel-cartones" class="panel" role="tabpanel" aria-labelledby="tab-cartones">
-      <div class="card cartones-controles">
-        <h2 class="section-title">Mis cartones</h2>
-        <div class="controles">
-          <label class="opcion">
-            Cartones
-            <select id="sel-cantidad">
-              <option value="1">1</option>
-              <option value="2" selected>2</option>
-              <option value="3">3</option>
-              <option value="4">4</option>
-              <option value="6">6</option>
-            </select>
-          </label>
-          <button type="button" id="btn-nuevos-cartones" class="btn btn-primary">Nuevos cartones</button>
-          <button type="button" id="btn-limpiar-marcas" class="btn">Limpiar marcas</button>
-        </div>
-        <p class="ayuda">Toca un número para marcarlo. Te avisaremos cuando hagas línea o bingo.</p>
-      </div>
-
-      <div id="cartones" class="cartones"></div>
-    </section>
   </main>
 
   <footer class="app-footer">
@@ -89,7 +60,6 @@
   <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
 
   <script src="js/bombo.js"></script>
-  <script src="js/carton.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>

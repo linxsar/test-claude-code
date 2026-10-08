@@ -1,6 +1,6 @@
 # 🎱 Bingo Online
 
-Una página web sencilla para jugar al Bingo desde cualquier dispositivo con conexión a Internet: móvil, tablet u ordenador.
+Un bombo de Bingo online para cantar las bolas desde cualquier dispositivo con conexión a Internet: móvil, tablet u ordenador. Los jugadores usan **cartones físicos** (de papel).
 
 El objetivo es que sea **simple, rápida y 100% responsive**, sin instalaciones ni registros: abres el enlace y juegas.
 
@@ -8,12 +8,9 @@ El objetivo es que sea **simple, rápida y 100% responsive**, sin instalaciones 
 
 - **Bombo (modo cantador):** saca bolas al azar del 1 al 90, sin repetir, y muestra la última bola y el historial.
 - **Panel de números:** tablero con los 90 números donde se marcan los que ya han salido.
-- **Cartones (modo jugador):** genera cartones aleatorios de Bingo español (3 filas × 9 columnas, 15 números por cartón).
-- **Marcado de números:** toca un número de tu cartón para tacharlo.
-- **Comprobación de línea y bingo:** avisa cuando completas una línea o el cartón entero.
 - **Modo automático:** saca bolas solo cada 3, 5 u 8 segundos.
 - **Voz:** opción para cantar en voz alta cada bola (si el navegador lo permite).
-- **Nueva partida:** reinicia el bombo con un solo botón y genera cartones nuevos cuando quieras.
+- **Nueva partida:** reinicia el bombo con un solo botón.
 - **Diseño responsive:** se adapta a cualquier tamaño de pantalla (mobile first).
 
 ## 🧱 Tecnologías
@@ -35,7 +32,6 @@ Al ser un sitio estático, puede publicarse gratis en **GitHub Pages**, Netlify 
 │   └── styles.css  # Estilos y diseño responsive
 ├── js/
 │   ├── bombo.js    # Lógica del bombo (sacar bolas)
-│   ├── carton.js   # Generación y marcado de cartones
 │   └── main.js     # Inicialización y eventos de la interfaz
 ├── .nojekyll       # Indica a GitHub Pages que sirva los archivos tal cual
 └── README.md
@@ -43,7 +39,7 @@ Al ser un sitio estático, puede publicarse gratis en **GitHub Pages**, Netlify 
 
 Todas las rutas son **relativas** y no hay paso de compilación, así que la carpeta funciona igual en GitHub Pages, en cualquier hosting o abriendo `index.html` en local.
 
-La partida (bolas sacadas, cartones y marcas) se guarda en el navegador con `localStorage`, por lo que no se pierde al recargar la página.
+La partida (bolas sacadas) se guarda en el navegador con `localStorage`, por lo que no se pierde al recargar la página.
 
 ## 🚀 Cómo usarlo
 
@@ -84,8 +80,8 @@ También funciona arrastrando la carpeta a Netlify Drop o desplegándola en Verc
 
 ## 🎮 Reglas básicas (Bingo de 90 bolas)
 
-1. Cada jugador tiene uno o varios cartones con 15 números repartidos en 3 filas.
-2. El cantador saca bolas del bombo una a una y las anuncia.
+1. Cada jugador tiene uno o varios cartones físicos con 15 números repartidos en 3 filas.
+2. El cantador saca bolas del bombo de la web una a una y las anuncia.
 3. Los jugadores marcan en su cartón los números que van saliendo.
 4. **Línea:** el primero en completar una fila entera la canta.
 5. **Bingo:** el primero en completar todo el cartón gana la partida.
@@ -96,9 +92,9 @@ La interfaz se diseña con enfoque *mobile first*:
 
 | Dispositivo | Ancho aproximado | Disposición |
 |-------------|------------------|-------------|
-| Móvil       | < 600 px         | Una columna, botones grandes y táctiles |
-| Tablet      | 600 – 1024 px    | Pestañas; bombo y panel de números lado a lado, cartones en rejilla |
-| Escritorio  | > 1024 px        | Bombo, panel de números y cartones visibles a la vez |
+| Móvil       | < 600 px         | Una columna: bombo arriba y panel de números debajo |
+| Tablet      | 600 – 1024 px    | Bombo y panel de números lado a lado |
+| Escritorio  | > 1024 px        | Bombo y panel de números lado a lado, con números más grandes |
 
 ## 🗺️ Hoja de ruta
 
@@ -106,11 +102,10 @@ La interfaz se diseña con enfoque *mobile first*:
 - [x] Estructura HTML base
 - [x] Estilos responsive (móvil, tablet, escritorio y modo oscuro)
 - [x] Lógica del bombo (manual y automático)
-- [x] Generación de cartones
-- [x] Marcado y detección de línea / bingo
+- [x] ~~Cartones digitales~~ (retirados: se juega con cartones físicos)
 - [x] Partida guardada en el navegador
 - [x] Lectura en voz alta de las bolas
-- [ ] Publicación en GitHub Pages
+- [x] Publicación en GitHub Pages
 - [ ] *(Opcional)* Partidas multijugador en tiempo real
 
 ## 📄 Licencia

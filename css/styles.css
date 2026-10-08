@@ -13,10 +13,8 @@
   --color-primario-texto: #ffffff;
   --color-acento: #ffb020;
   --color-peligro: #d23c4b;
-  --color-exito: #1f9d63;
   --color-num-salido: #5b3cc4;
   --color-celda-vacia: #ece8f7;
-  --color-marca: #ff5a7a;
 
   --radio: 14px;
   --radio-sm: 8px;
@@ -85,12 +83,12 @@ input {
   display: none !important;
 }
 
-/* ---------- Cabecera y pestañas ---------- */
+/* ---------- Cabecera ---------- */
 .app-header {
   position: sticky;
   top: 0;
   z-index: 10;
-  padding: 12px var(--espacio) 0;
+  padding: 12px var(--espacio);
   padding-top: max(12px, env(safe-area-inset-top));
   background: var(--color-primario);
   color: var(--color-primario-texto);
@@ -100,49 +98,20 @@ input {
 .app-title {
   font-size: 1.35rem;
   text-align: center;
-  padding-bottom: 10px;
-}
-
-.tabs {
-  display: flex;
-  gap: 4px;
-}
-
-.tab {
-  flex: 1;
-  min-height: 44px;
-  padding: 10px;
-  border: 0;
-  border-radius: var(--radio-sm) var(--radio-sm) 0 0;
-  background: transparent;
-  color: inherit;
-  font-weight: 600;
-  opacity: 0.75;
-  cursor: pointer;
-}
-
-.tab.is-active {
-  background: var(--color-fondo);
-  color: var(--color-texto);
-  opacity: 1;
 }
 
 /* ---------- Estructura principal ---------- */
 .app-main {
   flex: 1;
   width: 100%;
-  max-width: 1400px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: var(--espacio);
 }
 
 .panel {
-  display: none;
-  gap: var(--espacio);
-}
-
-.panel.is-active {
   display: grid;
+  gap: var(--espacio);
 }
 
 .card {
@@ -162,12 +131,6 @@ input {
   font-size: 0.95rem;
   color: var(--color-texto-suave);
   margin: 16px 0 8px;
-}
-
-.ayuda {
-  margin: 12px 0 0;
-  font-size: 0.9rem;
-  color: var(--color-texto-suave);
 }
 
 .app-footer {
@@ -228,8 +191,6 @@ input {
 }
 
 .btn:focus-visible,
-.tab:focus-visible,
-.celda:focus-visible,
 select:focus-visible,
 input:focus-visible {
   outline: 3px solid var(--color-acento);
@@ -367,96 +328,6 @@ select {
   box-shadow: 0 0 0 2px var(--color-texto);
 }
 
-/* ---------- Cartones ---------- */
-.cartones {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: var(--espacio);
-}
-
-.carton {
-  min-width: 0;
-  padding: 12px;
-  border: 3px solid var(--color-primario);
-  border-radius: var(--radio);
-  background: var(--color-superficie);
-  box-shadow: var(--sombra);
-}
-
-.carton.is-bingo {
-  border-color: var(--color-exito);
-  box-shadow: 0 0 0 4px rgba(31, 157, 99, 0.25), var(--sombra);
-}
-
-.carton-cabecera {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.carton-cabecera h3 {
-  font-size: 1rem;
-}
-
-.carton-estado {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: var(--color-texto-suave);
-}
-
-.carton.is-bingo .carton-estado {
-  color: var(--color-exito);
-}
-
-.carton-rejilla {
-  display: grid;
-  grid-template-columns: repeat(9, 1fr);
-  gap: 3px;
-}
-
-.celda {
-  position: relative;
-  display: grid;
-  place-items: center;
-  aspect-ratio: 1;
-  min-width: 0;
-  padding: 0;
-  border: 1px solid var(--color-borde);
-  border-radius: 6px;
-  background: var(--color-superficie);
-  font-size: clamp(0.85rem, 4vw, 1.2rem);
-  font-weight: 700;
-  cursor: pointer;
-  touch-action: manipulation;
-}
-
-.celda-vacia {
-  border-color: transparent;
-  background: var(--color-celda-vacia);
-  cursor: default;
-}
-
-.celda.is-marcada::after {
-  content: "";
-  position: absolute;
-  inset: 12%;
-  border-radius: 50%;
-  background: var(--color-marca);
-  opacity: 0.55;
-  animation: marcar 0.2s ease-out;
-}
-
-@keyframes marcar {
-  from {
-    transform: scale(0);
-  }
-  to {
-    transform: scale(1);
-  }
-}
-
 /* ---------- Avisos ---------- */
 .aviso {
   position: fixed;
@@ -482,38 +353,19 @@ select {
   transform: translate(-50%, 0);
 }
 
-.aviso-linea {
-  background: var(--color-exito);
-  color: #ffffff;
-}
-
-.aviso-bingo {
-  background: var(--color-acento);
-  color: #1f1b2e;
-  font-size: 1.4rem;
-}
-
 /* ---------- Tablet (600px – 1023px) ---------- */
 @media (min-width: 600px) {
   .app-title {
     font-size: 1.6rem;
   }
 
-  #panel-bombo.is-active {
+  .panel {
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     align-items: start;
   }
 
-  .cartones {
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  }
-
   .tablero-num {
     font-size: 0.9rem;
-  }
-
-  .celda {
-    font-size: clamp(0.9rem, 2vw, 1.2rem);
   }
 
   .btn {
@@ -521,32 +373,19 @@ select {
   }
 }
 
-/* ---------- Escritorio (1024px o más): todo visible a la vez ---------- */
+/* ---------- Escritorio (1024px o más) ---------- */
 @media (min-width: 1024px) {
-  .app-header {
-    position: static;
-    padding-bottom: 4px;
-  }
-
-  .tabs {
-    display: none;
-  }
-
-  .app-main {
-    display: grid;
+  .panel {
     grid-template-columns: minmax(380px, 5fr) 7fr;
-    gap: var(--espacio);
-    align-items: start;
   }
 
-  .panel,
-  .panel.is-active {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
+  .bola-actual {
+    width: 200px;
+    font-size: 5.5rem;
   }
 
-  #panel-bombo.is-active {
-    grid-template-columns: minmax(0, 1fr);
+  .tablero-num {
+    font-size: 1.05rem;
   }
 }
 
