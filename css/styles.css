@@ -100,6 +100,26 @@ input {
   text-align: center;
 }
 
+.btn-pantalla {
+  position: absolute;
+  top: 50%;
+  right: var(--espacio);
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: var(--radio-sm);
+  background: rgba(255, 255, 255, 0.15);
+  color: inherit;
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.btn-pantalla:hover {
+  background: rgba(255, 255, 255, 0.28);
+}
+
 /* ---------- Estructura principal ---------- */
 .app-main {
   flex: 1;
@@ -191,6 +211,7 @@ input {
 }
 
 .btn:focus-visible,
+.btn-pantalla:focus-visible,
 select:focus-visible,
 input:focus-visible {
   outline: 3px solid var(--color-acento);
@@ -294,7 +315,7 @@ select {
   font-size: 0.95rem;
 }
 
-.bola-mini:nth-child(n + 6) {
+.bola-mini:nth-child(n + 5) {
   opacity: 0.6;
 }
 
@@ -373,19 +394,151 @@ select {
   }
 }
 
-/* ---------- Escritorio (1024px o más) ---------- */
-@media (min-width: 1024px) {
+/* ---------- Pantallas horizontales grandes y proyector ----------
+   Todo cabe en una sola pantalla, sin scroll, y los tamaños
+   se calculan según el alto/ancho de la pantalla (vh / vw). */
+@media (min-width: 900px) and (orientation: landscape) {
+  body {
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .app-header {
+    position: relative;
+    padding: 1vh 2vw;
+  }
+
+  .app-title {
+    font-size: 4.2vh;
+  }
+
+  .btn-pantalla {
+    right: 1.5vw;
+    width: 5vh;
+    height: 5vh;
+    font-size: 3vh;
+  }
+
+  .app-main {
+    display: flex;
+    min-height: 0;
+    max-width: none;
+    padding: 1.5vh 1.5vw;
+  }
+
   .panel {
-    grid-template-columns: minmax(380px, 5fr) 7fr;
+    flex: 1;
+    min-height: 0;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 6fr);
+    align-items: stretch;
+    gap: 1.5vw;
+  }
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    padding: 2vh 1.5vw;
+  }
+
+  .section-title {
+    font-size: 3vh;
+    margin-bottom: 1.2vh;
+  }
+
+  /* Bombo */
+  .bombo {
+    align-items: center;
+    justify-content: space-evenly;
   }
 
   .bola-actual {
-    width: 200px;
-    font-size: 5.5rem;
+    --bola: min(38vh, 26vw);
+    width: var(--bola);
+    margin: 0;
+    font-size: calc(var(--bola) * 0.5);
+  }
+
+  .contador {
+    margin: 0;
+    font-size: 3.4vh;
+  }
+
+  .controles {
+    justify-content: center;
+    gap: 1vh;
+  }
+
+  .btn {
+    min-height: 0;
+    padding: 1.2vh 1.4vw;
+    font-size: 2.6vh;
+  }
+
+  .opciones {
+    margin: 0;
+    gap: 1vh 2vw;
+  }
+
+  .opcion {
+    min-height: 0;
+    font-size: 2.2vh;
+  }
+
+  .opcion input[type="checkbox"] {
+    width: 2.4vh;
+    height: 2.4vh;
+  }
+
+  select {
+    min-height: 0;
+    padding: 0.5vh 0.8vw;
+    font-size: 2.2vh;
+  }
+
+  .subtitle {
+    margin: 0;
+    font-size: 2.4vh;
+  }
+
+  .historial {
+    gap: 0.8vh;
+    min-height: 0;
+  }
+
+  .bola-mini {
+    width: min(6vh, 3.3vw);
+    height: min(6vh, 3.3vw);
+    font-size: min(2.8vh, 1.6vw);
+  }
+
+  /* Panel de números: 9 filas que ocupan todo el alto disponible */
+  .tablero {
+    flex: 1;
+    min-height: 0;
+    grid-template-rows: repeat(9, 1fr);
+    gap: 0.7vh;
   }
 
   .tablero-num {
-    font-size: 1.05rem;
+    aspect-ratio: auto;
+    border-radius: 0.8vh;
+    font-size: min(4.6vh, 2.6vw);
+    font-weight: 700;
+  }
+
+  .tablero-num.is-ultima {
+    box-shadow: 0 0 0 0.4vh var(--color-texto);
+  }
+
+  .app-footer {
+    padding: 0 0 1vh;
+    font-size: 1.6vh;
+  }
+
+  .aviso {
+    font-size: 3vh;
   }
 }
 

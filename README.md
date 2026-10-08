@@ -11,6 +11,8 @@ El objetivo es que sea **simple, rápida y 100% responsive**, sin instalaciones 
 - **Modo automático:** saca bolas solo cada 3, 5 u 8 segundos.
 - **Voz:** opción para cantar en voz alta cada bola (si el navegador lo permite).
 - **Nueva partida:** reinicia el bombo con un solo botón.
+- **Modo proyector:** en pantallas horizontales grandes todo cabe en una sola pantalla, sin scroll, con números grandes que escalan según la resolución.
+- **Pantalla completa:** botón ⛶ en la cabecera para ocultar las barras del navegador al proyectar.
 - **Diseño responsive:** se adapta a cualquier tamaño de pantalla (mobile first).
 
 ## 🧱 Tecnologías
@@ -39,7 +41,7 @@ Al ser un sitio estático, puede publicarse gratis en **GitHub Pages**, Netlify 
 
 Todas las rutas son **relativas** y no hay paso de compilación, así que la carpeta funciona igual en GitHub Pages, en cualquier hosting o abriendo `index.html` en local.
 
-Los archivos CSS y JS se enlazan con un número de versión (`styles.css?v=2`). **Al modificar cualquier CSS o JS hay que subir ese número en `index.html`** para que los navegadores no mezclen archivos nuevos con otros antiguos guardados en caché.
+Los archivos CSS y JS se enlazan con un número de versión (`styles.css?v=3`). **Al modificar cualquier CSS o JS hay que subir ese número en `index.html`** para que los navegadores no mezclen archivos nuevos con otros antiguos guardados en caché.
 
 La partida (bolas sacadas) se guarda en el navegador con `localStorage`, por lo que no se pierde al recargar la página.
 
@@ -95,8 +97,8 @@ La interfaz se diseña con enfoque *mobile first*:
 | Dispositivo | Ancho aproximado | Disposición |
 |-------------|------------------|-------------|
 | Móvil       | < 600 px         | Una columna: bombo arriba y panel de números debajo |
-| Tablet      | 600 – 1024 px    | Bombo y panel de números lado a lado |
-| Escritorio  | > 1024 px        | Bombo y panel de números lado a lado, con números más grandes |
+| Tablet vertical | ≥ 600 px     | Bombo y panel de números lado a lado |
+| Horizontal / proyector | ≥ 900 px y apaisada | Todo en una sola pantalla, sin scroll; tamaños proporcionales a la pantalla |
 
 ## 🗺️ Hoja de ruta
 

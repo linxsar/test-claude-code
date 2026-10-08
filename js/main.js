@@ -59,7 +59,7 @@
 
   let bombo = Bombo.desdeJSON(almacen.leer(CLAVES.bombo)) || new Bombo();
   let intervaloAuto = null;
-  const HISTORIAL_VISIBLE = 10;
+  const HISTORIAL_VISIBLE = 8;
 
   const vozDisponible = 'speechSynthesis' in global && 'SpeechSynthesisUtterance' in global;
 
@@ -166,12 +166,37 @@
     avisar('Nueva partida');
   }
 
+  /* ---------- Pantalla completa (para proyector) ---------- */
+
+  function alternarPantallaCompleta() {
+    if (doc.fullscreenElement) {
+      doc.exitFullscreen();
+    } else {
+      doc.documentElement.requestFullscreen().catch(() => {
+        avisar('No se pudo activar la pantalla completa');
+      });
+    }
+  }
+
+  function pintarBotonPantalla() {
+    const texto = doc.fullscreenElement ? 'Salir de pantalla completa' : 'Pantalla completa';
+    const btn = $('btn-pantalla');
+    btn.setAttribute('aria-label', texto);
+    btn.title = texto;
+  }
+
   /* ---------- Inicio ---------- */
 
   function iniciar() {
     // Datos de versiones anteriores que ya no se usan (cartones y pestañas).
     almacen.borrar('bingo:cartones');
     almacen.borrar('bingo:pestana');
+
+    if (doc.fullscreenEnabled) {
+      $('btn-pantalla').hidden = false;
+      $('btn-pantalla').addEventListener('click', alternarPantallaCompleta);
+      doc.addEventListener('fullscreenchange', pintarBotonPantalla);
+    }
 
     crearTablero();
     pintarBombo();

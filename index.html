@@ -7,17 +7,17 @@
   <meta name="theme-color" content="#5b3cc4">
   <title>Bingo Online</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎱</text></svg>">
-  <link rel="stylesheet" href="css/styles.css?v=2">
+  <link rel="stylesheet" href="css/styles.css?v=3">
 </head>
 <body>
   <header class="app-header">
     <h1 class="app-title">🎱 Bingo Online</h1>
+    <button type="button" id="btn-pantalla" class="btn-pantalla" aria-label="Pantalla completa" title="Pantalla completa" hidden>⛶</button>
   </header>
 
   <main class="app-main">
     <section id="panel-bombo" class="panel" aria-label="Bombo">
       <div class="card bombo">
-        <h2 class="section-title">Bombo</h2>
         <div class="bola-actual" id="bola-actual" aria-live="assertive" aria-atomic="true">–</div>
         <p class="contador"><span id="contador">0</span> / 90 bolas</p>
 
@@ -54,12 +54,12 @@
   </main>
 
   <footer class="app-footer">
-    <p>Bingo de 90 bolas · Hecho con HTML, CSS y JavaScript</p>
+    <p>Bingo de 90 bolas</p>
   </footer>
 
   <div id="aviso" class="aviso" role="status" aria-live="polite"></div>
 
-  <script src="js/bombo.js?v=2"></script>
-  <script src="js/main.js?v=2"></script>
+  <script src="js/bombo.js?v=3"></script>
+  <script src="js/main.js?v=3"></script>
 </body>
 </html>
